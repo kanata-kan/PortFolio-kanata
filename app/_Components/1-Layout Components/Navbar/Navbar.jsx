@@ -56,7 +56,7 @@ export default function Navbar({ name, isAdmin, userId }) {
       setTimeout(() => {
         setMenuOpen(false);
         setIsClosing(false);
-      }, 500); // نفس مدة الحركة في CSS
+      }, 500); // مدة الرسوم المتحركة
     } else {
       setMenuOpen(true);
     }
@@ -132,8 +132,8 @@ export default function Navbar({ name, isAdmin, userId }) {
     <nav className='bg-black text-white shadow-md px-20 transition-all duration-500 fixed top-0 left-0 w-full z-50'>
       <ToastContainer />
       <div className='container mx-auto px-4 py-4 flex justify-between items-center'>
-        <Link href='/' className='text-2xl font-bold'>
-          Kanata JS Web
+        <Link href='/' className='text-xl font-bold'>
+          Kanata JS
         </Link>
         <div className='hidden md:flex items-center space-x-8'>
           {isAuthenticated && (

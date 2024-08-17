@@ -70,7 +70,7 @@ export default function HomePage() {
 
       {/* المحتوى */}
       <div className='relative md:px-10 lg:px-20'>
-        <div className='bg-black bg-opacity-60 px-10 rounded-lg shadow-lg'>
+        <div className='desktop-only'>
           <HeroSection />
           <AboutMe />
           <ProjectsPage isAdmin={isAdmin} userId={userId} />

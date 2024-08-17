@@ -45,7 +45,7 @@ export default function Page() {
           }}
         />
       </Head>
-      <section className='min-h-screen py-20 px-4 mt-16 lg:px-20 bg-gradient-to-br from-gray-900 via-teal-800 to-black text-white'>
+      <section className='min-h-screen py-20 px-4 mt-14 lg:px-20 bg-gradient-to-br from-gray-900 via-teal-800 to-black text-white'>
         <h1 className='text-5xl font-bold text-center mb-10'>Contact Me</h1>
         <ContactMe />
       </section>

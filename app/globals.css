@@ -33,29 +33,49 @@
   }
 }
 
-/* الحالة الافتراضية عند الإغلاق */
 .menu-dropdown {
-  display: none; /* إخفاء القائمة المنسدلة بشكل افتراضي */
+  display: none;
   transform-origin: top;
   transform: scaleY(0);
   opacity: 0;
-  transition: transform 0.3s ease, opacity 0.3s ease;
-  position: absolute; /* لتجنب تأثيرها على العناصر الأخرى */
+  transition: transform 0.5s ease, opacity 0.5s ease;
+  position: absolute;
   top: 100%;
   left: 0;
   width: 100%;
 }
 
 .menu-dropdown.open {
-  display: flex; /* عرض القائمة المنسدلة عند الفتح */
-  transform: scaleY(1);
-  opacity: 1;
+  display: flex;
+  animation: dropdownOpen 0.5s ease forwards;
 }
 
-/* إضافة الحركة عند الإغلاق */
+@keyframes dropdownOpen {
+  0% {
+    transform: scaleY(0);
+    opacity: 0;
+  }
+  100% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+
+@keyframes dropdownClose {
+  0% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scaleY(0);
+    opacity: 0;
+  }
+}
+
 .menu-dropdown.closing {
   animation: dropdownClose 0.5s ease forwards;
 }
+
 /* حركة البوردر باستخدام clip-path */
 .navbar-link {
   position: relative;
@@ -92,7 +112,7 @@
 }
 
 .hero-image:hover {
-  transform: scale(1.1); /* تكبير الصورة عند مرور الماوس */
+  transform: scale(1); /* تكبير الصورة عند مرور الماوس */
   box-shadow: 0 0 30px rgba(48, 213, 200, 1); /* تكبير الظل المتوهج */
 }
 
@@ -132,4 +152,20 @@
   background-position: 0 0, 5px 5px, 10px 10px, center;
   background-blend-mode: screen, overlay, multiply;
   z-index: -1;
+}
+
+@media (min-width: 1024px) {
+  /* يستخدم 1024px كنقطة تحول شائعة لأجهزة الحاسوب */
+  .desktop-only {
+    background-color: rgba(0, 0, 0, 0.434);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+}
+
+@media (max-width: 1023px) {
+  .desktop-only {
+    padding: 10px;
+  }
 }

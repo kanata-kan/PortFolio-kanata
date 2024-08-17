@@ -1,4 +1,4 @@
-const PRODUCTION_DOMAIN = 'https://port-folio-kanata.vercel.app';
+const PRODUCTION_DOMAIN = 'https://www.kanatajs.com';
 const DEVELOPMENT_DOMAIN = 'http://localhost:3000';
 
 export const DOMAIN =
