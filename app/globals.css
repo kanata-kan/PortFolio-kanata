@@ -1,0 +1,135 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* تحريك فتح القائمة المنسدلة */
+@keyframes dropdownOpen {
+  0% {
+    transform: scaleY(0.6);
+    opacity: 0;
+  }
+  80% {
+    transform: scaleY(1.05);
+    opacity: 1;
+  }
+  100% {
+    transform: scaleY(1);
+  }
+}
+
+/* تحريك إغلاق القائمة المنسدلة */
+@keyframes dropdownClose {
+  0% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+  20% {
+    transform: scaleY(1.05);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scaleY(0.6);
+    opacity: 0;
+  }
+}
+
+/* الحالة الافتراضية عند الإغلاق */
+.menu-dropdown {
+  display: none; /* إخفاء القائمة المنسدلة بشكل افتراضي */
+  transform-origin: top;
+  transform: scaleY(0);
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  position: absolute; /* لتجنب تأثيرها على العناصر الأخرى */
+  top: 100%;
+  left: 0;
+  width: 100%;
+}
+
+.menu-dropdown.open {
+  display: flex; /* عرض القائمة المنسدلة عند الفتح */
+  transform: scaleY(1);
+  opacity: 1;
+}
+
+/* إضافة الحركة عند الإغلاق */
+.menu-dropdown.closing {
+  animation: dropdownClose 0.5s ease forwards;
+}
+/* حركة البوردر باستخدام clip-path */
+.navbar-link {
+  position: relative;
+  padding: 8px 12px;
+  text-decoration: none;
+  color: white;
+  transition: color 0.3s ease;
+}
+
+.navbar-link::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 2px solid #30d5c8;
+  clip-path: polygon(0 0, 0 0, 0 100%, 0 100%); /* يبدأ من الحجم 0 */
+  transition: clip-path 0.5s ease-in-out;
+  pointer-events: none;
+  border-radius: 8px;
+  z-index: -1; /* وضع البوردر خلف النص */
+  box-shadow: 0 0 15px rgba(48, 213, 200, 0.6); /* تأثير الظل */
+}
+
+.navbar-link:hover::before {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); /* يظهر البوردر بالكامل */
+}
+/* تأثير الظل المتوهج */
+.hero-image {
+  border-radius: 50%; /* جعل الصورة دائرية */
+  box-shadow: 0 0 20px rgba(48, 213, 200, 0.7); /* إضافة ظل متوهج */
+  transition: transform 0.5s ease, box-shadow 0.5s ease; /* تأثير التفاعل */
+}
+
+.hero-image:hover {
+  transform: scale(1.1); /* تكبير الصورة عند مرور الماوس */
+  box-shadow: 0 0 30px rgba(48, 213, 200, 1); /* تكبير الظل المتوهج */
+}
+
+/* تأثير التمويه الخلفي */
+.hero-image-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.hero-image-wrapper::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  background: rgba(0, 0, 0, 0.3); /* خلفية شبه شفافة */
+  filter: blur(10px); /* تمويه الخلفية */
+  border-radius: 50%; /* دائرة خلف الصورة */
+  z-index: -1; /* وضع الخلفية خلف الصورة */
+}
+.background {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #111;
+  background-image: radial-gradient(
+      circle,
+      rgba(0, 255, 171, 0.7) 1px,
+      transparent 1px
+    ),
+    radial-gradient(circle, rgba(0, 255, 171, 0.7) 1px, transparent 1px),
+    radial-gradient(circle, rgba(255, 255, 255, 0.1) 2px, transparent 2px),
+    linear-gradient(120deg, rgba(0, 255, 171, 0.3), rgba(0, 0, 0, 0.9)),
+    linear-gradient(60deg, rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.7));
+  background-size: 10px 10px, 10px 10px, 20px 20px, cover;
+  background-position: 0 0, 5px 5px, 10px 10px, center;
+  background-blend-mode: screen, overlay, multiply;
+  z-index: -1;
+}
