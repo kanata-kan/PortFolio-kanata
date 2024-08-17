@@ -7,6 +7,8 @@ import {
   FaCss3,
   FaDatabase,
 } from 'react-icons/fa';
+import { FiGitBranch, FiGithub } from 'react-icons/fi'; // استيراد الأيقونات من react-icons/fi
+
 import {
   SiNextdotjs,
   SiTailwindcss,
@@ -61,6 +63,16 @@ export default function AboutPage() {
       name: 'CSS',
       icon: <FaCss3 size={50} color='#264de4' alt='CSS logo' />,
       percentage: 90,
+    },
+    {
+      name: 'Git',
+      icon: <FiGitBranch size={50} color='#F1502F' alt='Git logo' />,
+      percentage: 75,
+    },
+    {
+      name: 'GitHub',
+      icon: <FiGithub size={50} color='#181717' alt='GitHub logo' />,
+      percentage: 80,
     },
   ];
 

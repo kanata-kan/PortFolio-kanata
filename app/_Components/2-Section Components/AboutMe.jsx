@@ -1,3 +1,4 @@
+// استيراد الأيقونات من الحزم الصحيحة
 import {
   FaReact,
   FaNodeJs,
@@ -5,6 +6,9 @@ import {
   FaJs,
   FaDatabase,
 } from 'react-icons/fa';
+
+import { FiGitBranch, FiGithub } from 'react-icons/fi'; // تصحيح مكان الاستيراد لهذين الأيقونتين
+
 import {
   SiNextdotjs,
   SiTailwindcss,
@@ -49,6 +53,18 @@ export default function AboutMe() {
       name: 'Prisma',
       icon: <SiPrisma size={50} color='#2D3748' />,
       percentage: 65,
+    },
+    // إضافة Git
+    {
+      name: 'Git',
+      icon: <FiGitBranch size={50} color='#F1502F' />, // اللون الرمزي لـ Git
+      percentage: 75,
+    },
+    // إضافة GitHub
+    {
+      name: 'GitHub',
+      icon: <FiGithub size={50} color='#181717' />, // اللون الرمزي لـ GitHub
+      percentage: 80,
     },
   ];
 

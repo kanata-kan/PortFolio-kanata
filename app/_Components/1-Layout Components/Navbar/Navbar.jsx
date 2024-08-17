@@ -7,6 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import NavbarLinks from './NavbarLinks';
 import LoginModal from './LoginModal';
 import Link from 'next/link';
+import { DOMAIN } from '@/app/lib/constants';
 
 export default function Navbar({ name, isAdmin, userId }) {
   const [scrollY, setScrollY] = useState(0);
@@ -65,7 +66,7 @@ export default function Navbar({ name, isAdmin, userId }) {
   const handleLoginLogout = async () => {
     if (isAuthenticated) {
       try {
-        const response = await fetch('http://localhost:3000/api/user/logout', {
+        const response = await fetch(`${DOMAIN}/api/user/logout`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -101,7 +102,7 @@ export default function Navbar({ name, isAdmin, userId }) {
     setLoading(true); // بدء التحميل عند إرسال الطلب
 
     try {
-      const response = await fetch('http://localhost:3000/api/user/login', {
+      const response = await fetch(`${DOMAIN}/api/api/user/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
