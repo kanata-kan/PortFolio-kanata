@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://www.kanatajs.com
+Host: https://kanatajs.com
 
 # Sitemaps
-Sitemap: https://www.kanatajs.com/sitemap.xml
+Sitemap: https://kanatajs.com/sitemap.xml
