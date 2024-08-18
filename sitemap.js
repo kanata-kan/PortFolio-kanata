@@ -2,8 +2,15 @@ const fs = require('fs');
 const path = require('path');
 
 function generateSiteMap() {
-  const baseUrl = 'https://www.kanatajs.com';
-  const pages = ['/', '/About', '/Projects', '/Contact', '/Register'];
+  const baseUrl = 'https://www.kanatajs.com'; // ضع هنا رابط موقعك
+  const pages = [
+    '/', // الصفحة الرئيسية
+    '/About', // صفحة About
+    '/Projects', // صفحة Projects
+    '/Contact', // صفحة Contact
+    '/Register', // صفحة Register
+    // يمكنك إضافة المزيد من الصفحات هنا بنفس الطريقة
+  ];
 
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset
@@ -17,6 +24,7 @@ function generateSiteMap() {
   <url>
     <loc>${baseUrl}${page}</loc>
     <lastmod>${new Date().toISOString()}</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>${page === '/' ? '1.00' : '0.80'}</priority>
   </url>`,
     )
