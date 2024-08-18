@@ -102,7 +102,7 @@ export default function Navbar({ name, isAdmin, userId }) {
     setLoading(true); // بدء التحميل عند إرسال الطلب
 
     try {
-      const response = await fetch(`${DOMAIN}/api/api/user/login`, {
+      const response = await fetch(`${DOMAIN}/api/user/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -134,7 +134,8 @@ export default function Navbar({ name, isAdmin, userId }) {
       <ToastContainer />
       <div className='container mx-auto px-4 py-4 flex justify-between items-center'>
         <Link href='/' className='text-xl font-bold'>
-          Kanata JS
+          <img src='/images/Logo.jpg' alt='Kanata JS Logo' className='h-12' />{' '}
+          {/* تعديل هنا */}
         </Link>
         <div className='hidden md:flex items-center space-x-8'>
           {isAuthenticated && (

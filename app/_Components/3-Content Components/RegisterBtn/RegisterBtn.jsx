@@ -5,6 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useRouter } from 'next/navigation';
 import { DOMAIN } from '@/app/lib/constants';
+import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 
 export default function Register({ userId }) {
   const route = useRouter();
@@ -16,7 +17,10 @@ export default function Register({ userId }) {
     phone: '',
     identityNumber: '',
   });
+  const [loading, setLoading] = useState(false); // حالة التحميل
+
   if (userId) route.push('/');
+
   const handleChange = e => {
     setFormData({
       ...formData,
@@ -32,6 +36,8 @@ export default function Register({ userId }) {
       return;
     }
 
+    setLoading(true); // بدء التحميل
+
     try {
       const response = await fetch(`${DOMAIN}/api/user/register`, {
         method: 'POST',
@@ -43,18 +49,20 @@ export default function Register({ userId }) {
 
       if (response.ok) {
         toast.success('Registration successful!');
-        // You can redirect the user to another page or reset the form here
+        // يمكنك إعادة توجيه المستخدم أو إعادة ضبط النموذج هنا
       } else {
         const errorData = await response.json();
         toast.error(`Registration failed: ${errorData.message}`);
       }
     } catch (error) {
       toast.error('An unexpected error occurred');
+    } finally {
+      setLoading(false); // إيقاف التحميل
     }
   };
 
   return (
-    <div className='min-h-screen bg-gradient-radial from-black-darkest to-black-light flex items-center justify-center'>
+    <div className='min-h-screen bg-gradient-to-br from-gray-900 via-teal-800 to-black mt-14 flex items-center justify-center'>
       <ToastContainer />
       <div className='bg-white-dark p-10 rounded-xl shadow-lg w-full max-w-lg'>
         <h2 className='text-3xl font-semibold mb-8 text-center text-green-dark'>
@@ -177,9 +185,14 @@ export default function Register({ userId }) {
           </div>
           <button
             type='submit'
-            className='w-full bg-green-dark  py-3 rounded-lg shadow-lg hover:bg-green text-black-light transition-all'
+            className='w-full bg-green-dark py-3 rounded-lg shadow-lg hover:bg-green text-black-light transition-all flex items-center justify-center'
+            disabled={loading} // تعطيل الزر أثناء التحميل
           >
-            Register
+            {loading ? (
+              <AiOutlineLoading3Quarters className='animate-spin mr-2' />
+            ) : (
+              'Register'
+            )}
           </button>
         </form>
       </div>

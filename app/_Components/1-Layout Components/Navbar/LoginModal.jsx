@@ -1,4 +1,6 @@
 import Modal from 'react-modal';
+import { useState } from 'react';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 export default function LoginModal({
   modalIsOpen,
@@ -8,6 +10,12 @@ export default function LoginModal({
   handleLoginSubmit,
   loading, // حالة التحميل يتم تمريرها من Navbar
 }) {
+  const [showPassword, setShowPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
   return (
     <Modal
       isOpen={modalIsOpen}
@@ -31,19 +39,26 @@ export default function LoginModal({
             required
           />
         </div>
-        <div>
+        <div className='relative'>
           <label htmlFor='password' className='block text-gray-700'>
             Password
           </label>
           <input
-            type='password'
+            type={showPassword ? 'text' : 'password'}
             name='password'
             id='password'
             value={loginData.password}
             onChange={handleInputChange}
-            className='w-full px-3 py-2 border rounded'
+            className='w-full px-3 py-2 border rounded pr-10'
             required
           />
+          <button
+            type='button'
+            onClick={togglePasswordVisibility}
+            className='absolute inset-y-0 right-0 px-3 py-2 text-gray-700'
+          >
+            {showPassword ? <FaEyeSlash /> : <FaEye />}
+          </button>
         </div>
         <button
           type='submit'

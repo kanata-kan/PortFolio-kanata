@@ -1,4 +1,5 @@
 import { FaFacebook, FaTwitter, FaLinkedin } from 'react-icons/fa';
+import Link from 'next/link'; // استيراد المكون Link من Next.js
 
 export default function Footer() {
   return (
@@ -6,7 +7,7 @@ export default function Footer() {
       <div className='max-w-screen-lg mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8'>
         {/* الشعار أو عنوان الموقع */}
         <div className='flex flex-col items-center lg:items-start'>
-          <h3 className='text-2xl font-bold mb-4'>Your Company</h3>
+          <img src='/images/Logo.jpg' alt='Logo' className='h-16 mb-4' />
           <p className='text-gray-400 mb-4 text-center lg:text-left'>
             Building the future, one line of code at a time.
           </p>
@@ -49,33 +50,24 @@ export default function Footer() {
           <h3 className='text-lg font-bold mb-4'>Quick Links</h3>
           <ul className='space-y-2 text-center lg:text-left'>
             <li>
-              <a href='#home' className='hover:text-teal-400 transition-colors'>
+              <Link href='/' legacyBehavior>
                 Home
-              </a>
+              </Link>
             </li>
             <li>
-              <a
-                href='#about'
-                className='hover:text-teal-400 transition-colors'
-              >
+              <Link href='#About' legacyBehavior>
                 About
-              </a>
+              </Link>
             </li>
             <li>
-              <a
-                href='#services'
-                className='hover:text-teal-400 transition-colors'
-              >
-                Services
-              </a>
+              <Link href='#Projects' legacyBehavior>
+                Projects
+              </Link>
             </li>
             <li>
-              <a
-                href='#contact'
-                className='hover:text-teal-400 transition-colors'
-              >
+              <Link href='#Contact' legacyBehavior>
                 Contact
-              </a>
+              </Link>
             </li>
           </ul>
         </div>
