@@ -1,3 +1,4 @@
+import { DOMAIN } from '@/app/lib/constants';
 import { useState } from 'react';
 import Modal from 'react-modal';
 import { toast } from 'react-toastify';
@@ -50,7 +51,7 @@ export default function NewProjectPopup({ isOpen, onClose, userId }) {
     };
 
     try {
-      const response = await fetch('http://localhost:3000/api/projects', {
+      const response = await fetch(`${DOMAIN}/api/projects`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
