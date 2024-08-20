@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { FaReact, FaNodeJs, FaPlus, FaEdit, FaTrash } from 'react-icons/fa';
@@ -8,9 +8,11 @@ import { DOMAIN } from '@/app/lib/constants';
 import NewProjectPopup from './NewProjectPopup';
 import EditProjectPopup from './EditProjectPopup';
 import DeleteConfirmation from './DeleteConfirmation';
+import ProjectCardSkeleton from './ProjectCardSkeleton';
 
 export default function ProjectsPage({ isAdmin, userId }) {
   const [projects, setProjects] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [isNewProjectPopupOpen, setIsNewProjectPopupOpen] = useState(false);
   const [isEditProjectPopupOpen, setIsEditProjectPopupOpen] = useState(false);
   const [isDeleteConfirmationOpen, setIsDeleteConfirmationOpen] =
@@ -26,6 +28,8 @@ export default function ProjectsPage({ isAdmin, userId }) {
         setProjects(data.projects);
       } catch (error) {
         console.error('Error fetching projects:', error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -92,17 +96,25 @@ export default function ProjectsPage({ isAdmin, userId }) {
         ))}
       </div>
 
-      {filteredProjects.length > 0 ? (
+      {isLoading ? (
+        <div className='grid gap-10 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'>
+          {Array(6)
+            .fill(0)
+            .map((_, index) => (
+              <ProjectCardSkeleton key={index} />
+            ))}
+        </div>
+      ) : filteredProjects.length > 0 ? (
         <div className='grid gap-10 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'>
           {filteredProjects.map((project, index) => {
-            const isFeatured = project.title === 'MaroTrips'; // تحقق إذا كان المشروع مميزًا
+            const isFeatured = project.title === 'MaroTrips';
 
             return (
               <motion.div
                 key={index}
                 className={`relative rounded-lg shadow-2xl p-4 overflow-hidden transition-all duration-500 ${
                   isFeatured
-                    ? 'bg-yellow-500 bg-opacity-50 backdrop-blur-lg' // تغيير اللون إذا كان المشروع مميزًا
+                    ? 'bg-yellow-500 bg-opacity-50 backdrop-blur-lg'
                     : 'bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg'
                 }`}
                 whileHover={{ scale: 1.05 }}
@@ -123,7 +135,7 @@ export default function ProjectsPage({ isAdmin, userId }) {
                     {project.title}
                   </h3>
                   {isFeatured && (
-                    <span className='text-yellow-300 font-bold'>Featured</span> // شارة تشير إلى أن المشروع مميز
+                    <span className='text-yellow-300 font-bold'>Featured</span>
                   )}
                   <p className='text-gray-300 text-sm mb-4'>
                     {project.description}
@@ -209,7 +221,7 @@ export default function ProjectsPage({ isAdmin, userId }) {
           project={selectedProject}
           isOpen={isEditProjectPopupOpen}
           onClose={handleEditProjectPopupToggle}
-          onProjectUpdated={setProjects} // Refresh the projects after update
+          onProjectUpdated={setProjects}
         />
       )}
 
@@ -218,7 +230,7 @@ export default function ProjectsPage({ isAdmin, userId }) {
           project={selectedProject}
           isOpen={isDeleteConfirmationOpen}
           onClose={handleDeleteConfirmationToggle}
-          onProjectDeleted={setProjects} // Refresh the projects after deletion
+          onProjectDeleted={setProjects}
         />
       )}
     </section>
