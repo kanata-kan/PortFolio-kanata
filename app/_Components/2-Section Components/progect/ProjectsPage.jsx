@@ -94,83 +94,94 @@ export default function ProjectsPage({ isAdmin, userId }) {
 
       {filteredProjects.length > 0 ? (
         <div className='grid gap-10 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3'>
-          {filteredProjects.map((project, index) => (
-            <motion.div
-              key={index}
-              className='relative rounded-lg shadow-2xl bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg p-4 overflow-hidden'
-              whileHover={{ scale: 1.05 }}
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-            >
-              <div className='rounded-lg p-4 bg-black bg-opacity-50'>
-                <Image
-                  src={getValidThumbnailSrc(project.thumbnail)}
-                  alt={`${project.title} Thumbnail`}
-                  width={600}
-                  height={300}
-                  className='w-full h-40 object-cover rounded-lg mb-4 shadow-lg'
-                />
+          {filteredProjects.map((project, index) => {
+            const isFeatured = project.title === 'MaroTrips'; // تحقق إذا كان المشروع مميزًا
 
-                <h3 className='text-2xl font-semibold text-white mb-2'>
-                  {project.title}
-                </h3>
-                <p className='text-gray-300 text-sm mb-4'>
-                  {project.description}
-                </p>
-                <div className='flex justify-start items-center mb-4'>
-                  {project.technologies.map((tech, i) => (
-                    <div key={i} className='flex items-center mr-4'>
-                      {tech === 'React' && (
-                        <FaReact className='text-green-light text-lg mr-1' />
-                      )}
-                      {tech === 'Next.js' && (
-                        <SiNextdotjs className='text-gray-300 text-lg mr-1' />
-                      )}
-                      {tech === 'Node.js' && (
-                        <FaNodeJs className='text-green-light text-lg mr-1' />
-                      )}
-                      <span className='text-white text-sm'>{tech}</span>
-                    </div>
-                  ))}
-                </div>
-                <div className='flex space-x-4'>
-                  <a
-                    href={project.projectLink}
-                    target='_blank'
-                    rel='noopener noreferrer'
-                    className='text-green-light hover:text-white transition-colors'
-                  >
-                    Live Demo
-                  </a>
-                  <a
-                    href={project.repositoryLink}
-                    target='_blank'
-                    rel='noopener noreferrer'
-                    className='text-green-light hover:text-white transition-colors'
-                  >
-                    Code
-                  </a>
-                </div>
-                {isAdmin && (
-                  <div className='flex justify-end space-x-2 mt-4'>
-                    <button
-                      onClick={() => handleEditProjectPopupToggle(project)}
-                      className='text-yellow-500 hover:text-white transition-colors'
-                    >
-                      <FaEdit size={18} />
-                    </button>
-                    <button
-                      onClick={() => handleDeleteConfirmationToggle(project)}
-                      className='text-red-500 hover:text-white transition-colors'
-                    >
-                      <FaTrash size={18} />
-                    </button>
+            return (
+              <motion.div
+                key={index}
+                className={`relative rounded-lg shadow-2xl p-4 overflow-hidden transition-all duration-500 ${
+                  isFeatured
+                    ? 'bg-yellow-500 bg-opacity-50 backdrop-blur-lg' // تغيير اللون إذا كان المشروع مميزًا
+                    : 'bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg'
+                }`}
+                whileHover={{ scale: 1.05 }}
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+              >
+                <div className='rounded-lg p-4 bg-black bg-opacity-50'>
+                  <Image
+                    src={getValidThumbnailSrc(project.thumbnail)}
+                    alt={`${project.title} Thumbnail`}
+                    width={600}
+                    height={300}
+                    className='w-full h-40 object-cover rounded-lg mb-4 shadow-lg'
+                  />
+
+                  <h3 className='text-2xl font-semibold text-white mb-2'>
+                    {project.title}
+                  </h3>
+                  {isFeatured && (
+                    <span className='text-yellow-300 font-bold'>Featured</span> // شارة تشير إلى أن المشروع مميز
+                  )}
+                  <p className='text-gray-300 text-sm mb-4'>
+                    {project.description}
+                  </p>
+                  <div className='flex justify-start items-center mb-4'>
+                    {project.technologies.map((tech, i) => (
+                      <div key={i} className='flex items-center mr-4'>
+                        {tech === 'React' && (
+                          <FaReact className='text-green-light text-lg mr-1' />
+                        )}
+                        {tech === 'Next.js' && (
+                          <SiNextdotjs className='text-gray-300 text-lg mr-1' />
+                        )}
+                        {tech === 'Node.js' && (
+                          <FaNodeJs className='text-green-light text-lg mr-1' />
+                        )}
+                        <span className='text-white text-sm'>{tech}</span>
+                      </div>
+                    ))}
                   </div>
-                )}
-              </div>
-            </motion.div>
-          ))}
+                  <div className='flex space-x-4'>
+                    <a
+                      href={project.projectLink}
+                      target='_blank'
+                      rel='noopener noreferrer'
+                      className='text-green-light hover:text-white transition-colors'
+                    >
+                      Live Demo
+                    </a>
+                    <a
+                      href={project.repositoryLink}
+                      target='_blank'
+                      rel='noopener noreferrer'
+                      className='text-green-light hover:text-white transition-colors'
+                    >
+                      Code
+                    </a>
+                  </div>
+                  {isAdmin && (
+                    <div className='flex justify-end space-x-2 mt-4'>
+                      <button
+                        onClick={() => handleEditProjectPopupToggle(project)}
+                        className='text-yellow-500 hover:text-white transition-colors'
+                      >
+                        <FaEdit size={18} />
+                      </button>
+                      <button
+                        onClick={() => handleDeleteConfirmationToggle(project)}
+                        className='text-red-500 hover:text-white transition-colors'
+                      >
+                        <FaTrash size={18} />
+                      </button>
+                    </div>
+                  )}
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
       ) : (
         <p className='text-center text-gray-300'>No projects available.</p>
